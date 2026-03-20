@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw Bridge — Android hands for agents</title>
+  <meta name="description" content="OpenClaw Bridge is an Android accessibility bridge: AutoJs on-device + Python client in Termux, exposing a clean JSON API for agents." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background: #050505;
+      color: #e2e2e2;
+      font-family: 'DM Mono', monospace;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 8px;
+    }
+    h1 span { color: #ff4400; }
+    h2 { margin-top: 32px; font-size: 18px; }
+    p { line-height: 1.7; font-size: 14px; color: #b0b0b0; }
+    a { color: #ff6633; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: #0d0d0d; padding: 2px 4px; border-radius: 3px; }
+    pre {
+      background: #0d0d0d;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    ul { padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>OpenClaw <span>Bridge</span></h1>
+    <p>Android accessibility bridge for OpenClaw and other agents. AutoJs on-device, Python client in Termux, clean JSON over TCP.</p>
+
+    <h2>What it does</h2>
+    <p>
+      The bridge turns your phone into a controllable surface:
+    </p>
+    <ul>
+      <li>Read the current screen or just the text</li>
+      <li>Tap by coordinates, text, or contentDescription</li>
+      <li>Swipe, type, press keys</li>
+      <li>Launch apps or open URLs</li>
+    </ul>
+
+    <h2>Architecture</h2>
+    <pre><code>OpenClaw / Token Firewall / your agent
+    │
+    ▼
+Python client (oclaw_bridge.py)
+    │   JSON over TCP
+    ▼
+AutoJs script (openclaw-bridge.js)
+    │   Android accessibility APIs
+    ▼
+Android device
+</code></pre>
+
+    <h2>Quickstart</h2>
+    <pre><code># In Termux on the phone
+pip install --upgrade requests
+
+# Assuming the AutoJs service is already running on 127.0.0.1:9999
+python bridge_cli.py get-text
+python bridge_cli.py launch-app com.anthropic.claude
+python bridge_cli.py tap-text "Connections"
+</code></pre>
+
+    <p>
+      For full details, see the project README on GitHub:
+      <a href="https://github.com/inoahaipro/openclaw_bridge" target="_blank" rel="noreferrer">inoahaipro/openclaw_bridge</a>.
+    </p>
+  </div>
+</body>
+</html>
